@@ -291,12 +291,12 @@ Hcs:
 
     # operator set for the orderer
     Operator:
-        Id: Your Hedera testnet account id here
+        Id: 0.0.3779184
         PrivateKey:
             # type of the private key
             Type: ed25519
             # key string (hex or PEM encoded) or path to the key file
-            Key: Your Hedera testnet account private key string here
+            Key: 302e020100300506032b6570042204200ca4bef244a144ac500470753b0233b10de8b18fa2d7af2ee82de5fe6e9d13f8
 
     # block cipher used to en/decrypt data between orderer and HCS
     BlockCipher:
