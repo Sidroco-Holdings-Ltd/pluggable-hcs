@@ -319,3 +319,12 @@ unit-test-clean:
 .PHONY: filename-spaces
 spaces:
 	@scripts/check_file_name_spaces.sh
+
+update-network-config:
+	./caliper/caliper-benchmarks/networks/fabric/update_network.sh
+
+caliper-test-up: update-network-config
+	docker compose -f ./caliper/docker-compose.yaml up
+
+caliper-test-down:
+	docker compose -f ./caliper/docker-compose.yaml down -v
