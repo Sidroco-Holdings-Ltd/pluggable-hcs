@@ -78,6 +78,9 @@ func (t *ABstore) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	} else if function == "query" {
 		// the old "Query" is now implemtned in invoke
 		return t.query(stub, args)
+	} else if function == "createEntity" {
+		// the old "Query" is now implemtned in invoke
+		return t.createEntity(stub, args)
 	}
 
 	return shim.Error("Invalid invoke function name. Expecting \"invoke\" \"delete\" \"query\"")
@@ -183,6 +186,23 @@ func (t *ABstore) query(stub shim.ChaincodeStubInterface, args []string) pb.Resp
 	jsonResp := "{\"Name\":\"" + A + "\",\"Amount\":\"" + string(Avalbytes) + "\"}"
 	fmt.Printf("Query Response:%s\n", jsonResp)
 	return shim.Success(Avalbytes)
+}
+
+func (t *ABstore) createEntity(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	if len(args) != 2 {
+			return shim.Error("Incorrect number of arguments. Expecting 2")
+	}
+
+	entity := args[0]
+	initialHolding := args[1]
+
+	// Write the state to the ledger
+	err := stub.PutState(entity, []byte(initialHolding))
+	if err != nil {
+			return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
 }
 
 func main() {
