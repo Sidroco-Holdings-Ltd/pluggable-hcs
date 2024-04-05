@@ -1,0 +1,43 @@
+name: Caliper Benchmarks
+version: "2.0.0"
+
+caliper:
+  blockchain: fabric
+
+info:
+  Version: 2.2.0
+  Size: 2 Org with 2 Peers
+  Orderer: HCS
+  Distribution: Single Host
+  StateDB: golevelDB
+
+channels:
+  # channelName of mychannel matches the name of the channel created by test network
+  - channelName: mychannel
+    # the chaincodeIDs of all the fabric chaincodes in caliper-benchmarks
+    contracts:
+    - id: mycc
+
+organizations:
+  - mspid: Org1MSP
+    identities:
+      certificates:
+      - name: 'User1'
+        clientPrivateKey:
+          path: '../first-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk'
+        clientSignedCert:
+          path: '../first-network/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem'
+    connectionProfile:
+      path: '../first-network/connection-org1.yaml'
+      discover: true
+  - mspid: Org2MSP
+    identities:
+      certificates:
+      - name: 'User1'
+        clientPrivateKey:
+          path: '../first-network/crypto-config/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/keystore/priv_sk'
+        clientSignedCert:
+          path: '../first-network/crypto-config/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/signcerts/User1@org2.example.com-cert.pem'
+    connectionProfile:
+      path: '../first-network/connection-org2.yaml'
+      discover: true
